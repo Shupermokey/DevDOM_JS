@@ -12,6 +12,7 @@
  */
 
 // Your code goes here...
+const allItems = document.querySelectorAll('.item');
 
 
 
@@ -23,7 +24,7 @@
  * */
 
 // Your code goes here
-
+const main = document.getElementById('main');
 
 
 /**
@@ -34,6 +35,8 @@
  */
 
 // Your code goes here
+const favs = document.getElementById('favs');
+
 
 
 
@@ -47,7 +50,27 @@
  */
 
 // Your code goes here
+function updateCollections(id, direction){
+  console.log(id + " is clicked")
+  const nodeList = document.querySelectorAll('.item');
+  const arr = Array.from(nodeList);
 
+  const favContainer = document.getElementById('favs');
+  const mainContainer = document.getElementById('main');
+
+  arr.forEach((item) => {
+    if(item.id === id && direction === 'myFavs'){
+      favContainer.append(item);
+    }
+    else if(item.id===id && direction === 'toMain'){
+      mainContainer.append(item);
+
+    } 
+  })
+
+  
+  
+}
 
 
 /**
@@ -65,5 +88,22 @@
  */
 
 // Your code goes here...
+
+for(let i = 0; i<allItems.length; i++){
+  allItems[i].addEventListener('click', ()=> {
+    const parent = allItems[i].parentElement;
+    const itemId = allItems[i].id;
+    let dirConstant = 'toMain';
+    
+    if(parent.id === 'favs'){
+      dirConstant = 'toMain'
+    }
+    if(parent.id === 'main') {
+      dirConstant = 'myFavs';
+    }
+    updateCollections(itemId, dirConstant);
+
+  })
+}
 
 
