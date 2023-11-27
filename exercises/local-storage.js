@@ -38,3 +38,47 @@
  */
 
 // Your code goes here...
+
+function addToLS(id) {
+  if(localStorage.length === 0){
+  localStorage.setItem('favs', id);
+  }
+  else if(!localStorage.getItem('favs').includes(id)) {
+    let stored = localStorage.getItem('favs');
+    localStorage.setItem('favs', stored +=`,${id}`);
+  }
+  else {
+    deleteFromLS(id);
+  }
+  setRed();
+}
+
+function setRed() {
+  const storageArr = localStorage.getItem("favs").split(',');
+  console.log(storageArr);
+  for(let i of storageArr) {
+    if(document.getElementById(i)!== null){
+      document.getElementById(i).style.backgroundColor = 'red';
+    }
+  }
+}
+
+function deleteFromLS(id){
+  document.getElementById(id).style.backgroundColor = 'white';
+  const storageArr = localStorage.getItem("favs").split(',');
+  storageArr.splice(storageArr.indexOf(id), 1).join(',');
+  localStorage.setItem('favs', storageArr);
+}
+
+
+const callbackFunction = (e) => {
+  const item = e.target;
+  addToLS(item.id);
+  
+};
+
+
+const container = document.querySelector(".cardsContainer");
+container.addEventListener('click', callbackFunction);
+
+setRed();
