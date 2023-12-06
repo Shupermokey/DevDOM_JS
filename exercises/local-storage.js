@@ -54,12 +54,14 @@ function addToLS(id) {
 }
 
 function setRed() {
-  const storageArr = localStorage.getItem("favs").split(',');
+  if(localStorage.length > 0){
+    const storageArr = localStorage.getItem("favs").split(',');
   console.log(storageArr);
   for(let i of storageArr) {
     if(document.getElementById(i)!== null){
       document.getElementById(i).style.backgroundColor = 'red';
     }
+  }
   }
 }
 
@@ -73,7 +75,9 @@ function deleteFromLS(id){
 
 const callbackFunction = (e) => {
   const item = e.target;
-  addToLS(item.id);
+  if(Array.from(item.classList).includes("card")){
+    addToLS(item.id);
+  }
   
 };
 
